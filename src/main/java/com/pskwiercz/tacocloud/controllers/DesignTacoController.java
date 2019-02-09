@@ -61,7 +61,7 @@ public class DesignTacoController {
 
         log.trace(taco.toString());
 
-        return "home";
+        return "redirect:/orders/current";
     }
 
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
