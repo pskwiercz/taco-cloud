@@ -68,8 +68,7 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid TacoStringBased tacoStr, BindingResult bindingResult,
-                                @ModelAttribute Order order) {
+    public String processDesign(@Valid TacoStringBased tacoStr, BindingResult bindingResult, Order order) {
 
         if (bindingResult.hasErrors()) {
             return "design";
@@ -93,7 +92,7 @@ public class DesignTacoController {
     private Taco transformStringBasedTaco2EntityTaco(TacoStringBased tacoStr) {
         List<Ingredient> ingredientList = tacoStr.getIngredients()
                 .stream()
-                .map(strId -> ingredientRepository.findOne(strId))
+                .map(strId -> ingredientRepository.findById(strId).get())
                 .collect(Collectors.toList());
 
         Taco taco = new Taco();

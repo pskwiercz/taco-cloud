@@ -1,4 +1,4 @@
-package com.pskwiercz.tacocloud;
+package com.pskwiercz.tacocloud.controllers;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -11,6 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     // Just add mapping path -> view name to registry and controller is not needed
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/").setViewName("home");
     }
 }

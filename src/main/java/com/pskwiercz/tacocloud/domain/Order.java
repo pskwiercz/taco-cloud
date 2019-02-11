@@ -1,5 +1,6 @@
 package com.pskwiercz.tacocloud.domain;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -14,8 +15,12 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Entity
+@Table(name = "Taco_Order")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date placedAt;
@@ -46,10 +51,15 @@ public class Order {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
 
+    @ManyToMany(targetEntity=Taco.class)
     private List<Taco> tacos = new ArrayList<>();
 
     public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }
 
+    @PrePersist
+    void placedAt(){
+        this.placedAt = new Date();
+    }
 }

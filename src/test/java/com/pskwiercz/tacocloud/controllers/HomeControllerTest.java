@@ -13,20 +13,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
-@RunWith(SpringRunner.class)
-@WebMvcTest(HomeController.class)
-public class HomeControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    public void homePageTest() throws Exception {
-
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("home"))
-                .andExpect(content().string(containsString("Welcome to")));
-    }
-}
+//
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(HomeController.class)
+//public class HomeControllerTest {
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @Test
+//    public void homePageTest() throws Exception {
+//
+//        mockMvc.perform(get("/"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("home"))
+//                .andExpect(content().string(containsString("Welcome to")));
+//    }
+//}

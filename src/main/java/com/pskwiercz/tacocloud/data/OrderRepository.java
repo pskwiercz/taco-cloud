@@ -1,8 +1,11 @@
 package com.pskwiercz.tacocloud.data;
 
 import com.pskwiercz.tacocloud.domain.Order;
+import org.springframework.data.repository.CrudRepository;
 
-public interface OrderRepository {
+import java.util.List;
 
-    Order save(Order order);
+public interface OrderRepository extends CrudRepository<Order, Long> {
+
+    List<Order> findByDeliveryZip(String deliveryZip);
 }
