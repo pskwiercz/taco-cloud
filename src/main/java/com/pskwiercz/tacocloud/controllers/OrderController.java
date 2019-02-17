@@ -1,9 +1,11 @@
 package com.pskwiercz.tacocloud.controllers;
 
+import com.pskwiercz.tacocloud.config.OrderProperties;
 import com.pskwiercz.tacocloud.data.OrderRepository;
 import com.pskwiercz.tacocloud.domain.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,14 +24,17 @@ import javax.validation.Valid;
 public class OrderController {
 
     private final OrderRepository orderRepository;
+    private final OrderProperties orderProperties;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository, OrderProperties orderProperties) {
         this.orderRepository = orderRepository;
+        this.orderProperties = orderProperties;
     }
 
     @GetMapping("/current")
     public String orderForm(Model model) {
+        model.addAttribute("msg", orderProperties.getWelcomeMsg());
         return "orderForm";
     }
 
