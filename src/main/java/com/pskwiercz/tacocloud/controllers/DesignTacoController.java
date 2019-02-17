@@ -2,11 +2,9 @@ package com.pskwiercz.tacocloud.controllers;
 
 import com.pskwiercz.tacocloud.data.IngredientRepository;
 import com.pskwiercz.tacocloud.data.TacoRepository;
-import com.pskwiercz.tacocloud.domain.Ingredient;
+import com.pskwiercz.tacocloud.data.UserRepository;
+import com.pskwiercz.tacocloud.domain.*;
 import com.pskwiercz.tacocloud.domain.Ingredient.Type;
-import com.pskwiercz.tacocloud.domain.Order;
-import com.pskwiercz.tacocloud.domain.Taco;
-import com.pskwiercz.tacocloud.domain.TacoStringBased;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,11 +26,14 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
     private final TacoRepository tacoRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository,
+                                UserRepository userRepository) {
         this.ingredientRepository = ingredientRepository;
         this.tacoRepository = tacoRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute(name = "order")
@@ -60,8 +62,11 @@ public class DesignTacoController {
     }
 
     @GetMapping //is the same as @RequestMapping("/", method=RequestMethod.GET)
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
 
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
         model.addAttribute("taco", new TacoStringBased());
 
         return "design";
